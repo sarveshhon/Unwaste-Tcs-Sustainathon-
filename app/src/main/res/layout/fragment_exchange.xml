@@ -6,4 +6,10 @@
     tools:context=".Home.ExchangeFragment">
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvExchange"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp" />
+
 </RelativeLayout>

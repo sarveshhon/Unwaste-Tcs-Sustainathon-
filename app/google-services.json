@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "956355078522",
+    "project_id": "unwaste-9ee44",
+    "storage_bucket": "unwaste-9ee44.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956355078522:android:3dfcad709888b71cd10ec3",
+        "android_client_info": {
+          "package_name": "com.teamunwaste.unwaste"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956355078522-ke94ojldqupmghhdr8jnm5m884k5eibm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKpWnrJGWY1K_6FkW_hqW8C3KXz17iW1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956355078522-ke94ojldqupmghhdr8jnm5m884k5eibm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

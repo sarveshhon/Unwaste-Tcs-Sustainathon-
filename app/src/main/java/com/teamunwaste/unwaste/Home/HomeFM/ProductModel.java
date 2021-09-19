@@ -9,7 +9,6 @@ public class ProductModel {
     String productDescription;
     String productPrice;
     String productStatus;
-    String userId;
     String userName;
     String userPhone;
     String userEmail;
@@ -17,7 +16,7 @@ public class ProductModel {
     public ProductModel() {
     }
 
-    public ProductModel(String categoryId, String productId, String productTitle, String productImage, String productDescription, String productPrice, String productStatus, String userId, String userName, String userPhone, String userEmail) {
+    public ProductModel(String categoryId, String productId, String productTitle, String productImage, String productDescription, String productPrice, String productStatus, String userName, String userPhone, String userEmail) {
         this.categoryId = categoryId;
         this.productId = productId;
         this.productTitle = productTitle;
@@ -25,7 +24,6 @@ public class ProductModel {
         this.productDescription = productDescription;
         this.productPrice = productPrice;
         this.productStatus = productStatus;
-        this.userId = userId;
         this.userName = userName;
         this.userPhone = userPhone;
         this.userEmail = userEmail;
@@ -57,10 +55,6 @@ public class ProductModel {
 
     public String getProductStatus() {
         return productStatus;
-    }
-
-    public String getUserId() {
-        return userId;
     }
 
     public String getUserName() {

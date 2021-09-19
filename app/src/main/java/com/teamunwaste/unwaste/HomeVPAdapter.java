@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.teamunwaste.unwaste.Home.AccountFragment;
 import com.teamunwaste.unwaste.Home.ExchangeFragment;
 import com.teamunwaste.unwaste.Home.ExploreFragment;
 import com.teamunwaste.unwaste.Home.HomeFragment;
@@ -23,12 +24,14 @@ public class HomeVPAdapter extends FragmentStateAdapter {
             return new ExchangeFragment();
         } else if (position == 2) {
             return new ExploreFragment();
+        }else if (position == 3) {
+            return new AccountFragment();
         }
         return new HomeFragment();
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 4;
     }
 }

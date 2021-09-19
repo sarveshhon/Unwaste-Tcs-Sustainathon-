@@ -83,7 +83,6 @@ public class HomeFragment extends Fragment {
                                     jsonObject2.getString(productDescription),
                                     jsonObject2.getString(productPrice),
                                     jsonObject2.getString(productStatus),
-                                    jsonObject2.getString(userId),
                                     jsonObject2.getString(userName),
                                     jsonObject2.getString(userPhone),
                                     jsonObject2.getString(userEmail)

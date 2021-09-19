@@ -75,7 +75,6 @@ public class ProductListActivity extends AppCompatActivity {
                             jsonObject.getString(productDescription),
                             jsonObject.getString(productPrice),
                             jsonObject.getString(productStatus),
-                            jsonObject.getString(userId),
                             jsonObject.getString(userName),
                             jsonObject.getString(userPhone),
                             jsonObject.getString(userEmail)

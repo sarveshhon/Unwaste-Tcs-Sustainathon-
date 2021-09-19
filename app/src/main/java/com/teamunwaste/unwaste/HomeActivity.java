@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.teamunwaste.unwaste.databinding.ActivityHomeBinding;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
+    private long mBackPressed;
 
     ActivityHomeBinding binding;
 
@@ -21,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.tlHomeAct.addTab(binding.tlHomeAct.newTab().setText("Home"));
         binding.tlHomeAct.addTab(binding.tlHomeAct.newTab().setText("Exchange"));
         binding.tlHomeAct.addTab(binding.tlHomeAct.newTab().setText("Explore"));
+        binding.tlHomeAct.addTab(binding.tlHomeAct.newTab().setText("Account"));
 
         binding.vpHomeAct.setAdapter(new HomeVPAdapter(getSupportFragmentManager(), getLifecycle()));
         binding.vpHomeAct.setUserInputEnabled(false);
@@ -53,6 +58,17 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+            super.onBackPressed();
+            finishAffinity();
+        } else {
+            Toast.makeText(this, "Tap again to exit", Toast.LENGTH_SHORT).show();
+        }
+
+        mBackPressed = System.currentTimeMillis();
     }
 }

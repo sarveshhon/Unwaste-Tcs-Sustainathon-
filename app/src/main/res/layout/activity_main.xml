@@ -24,32 +24,58 @@
             android:background="@drawable/unwaste_logo"
             android:scaleType="fitXY" />
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvProgressBar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="180dp">
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:indeterminateTint="@color/black" />
+
+        </com.google.android.material.card.MaterialCardView>
+
         <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="10dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/primary_color"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp">
 
             <LinearLayout
                 android:id="@+id/btnGmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:drawablePadding="10dp"
-                    android:text="Login with Gmail"
-                    android:textAlignment="center"
-                    android:textSize="18sp"
-                    app:drawableStartCompat="@drawable/ic_gmail" />
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="Login With Google"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:drawableLeftCompat="@drawable/ic_google" />
 
             </LinearLayout>
 

@@ -17,4 +17,13 @@ public interface PARAM {
         public String userPhone = "userPhone";
         public String userEmail = "userEmail";
     
+        public String exchangeId = "exchangeId";
+        public String exchangeTitle = "exchangeTitle";
+        public String exchangeImage = "exchangeImage";
+        public String exchangeType = "exchangeType";
+        public String exchangeFee = "exchangeFee";
+        public String exchangeDescription = "exchangeDescription";
+        public String userAddress = "userAddress";
+        public String postDate = "postDate";
+
 }
