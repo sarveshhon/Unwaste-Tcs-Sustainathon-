@@ -3,8 +3,10 @@ package com.teamunwaste.unwaste.Helper;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -65,5 +67,11 @@ public class Util {
         }
     }
 
+    public static void callNow(Context context, String phone) {
+
+        Intent callIntent = new Intent(Intent.ACTION_VIEW);
+        callIntent.setData(Uri.parse("tel:" + phone));
+        context.startActivity(callIntent);
+    }
 
 }

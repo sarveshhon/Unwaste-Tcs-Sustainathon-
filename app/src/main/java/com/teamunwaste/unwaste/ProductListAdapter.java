@@ -1,6 +1,8 @@
 package com.teamunwaste.unwaste;
 
 import static com.teamunwaste.unwaste.Helper.PARAM.productId;
+import static com.teamunwaste.unwaste.Helper.PARAM.userEmail;
+import static com.teamunwaste.unwaste.Helper.PARAM.userPhone;
 
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +46,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.itemView.setOnClickListener(v -> {
             Intent i = new Intent(context, ProductOverviewActivity.class);
             i.putExtra(productId, Util.convertMongodbObjToString(list.get(position).getProductId()));
+            i.putExtra(userEmail, list.get(position).getUserEmail());
+            i.putExtra(userPhone, list.get(position).getUserPhone());
             context.startActivity(i);
         });
 

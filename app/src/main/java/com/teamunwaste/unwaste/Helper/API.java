@@ -11,5 +11,6 @@ public interface API {
     public String REMOVE_SELL_PRODUCT_HISTORY_API = "https://webhooks.mongodb-realm.com/api/client/v2.0/app/unapp-ntnli/service/unwaste/incoming_webhook/removeSellProduct";
     public String REMOVE_EXCHANGE_POST_HISTORY_API = "https://webhooks.mongodb-realm.com/api/client/v2.0/app/unapp-ntnli/service/unwaste/incoming_webhook/removeExchangePost";
     public String EXCHANGE_POST_API = "https://webhooks.mongodb-realm.com/api/client/v2.0/app/unapp-ntnli/service/unwaste/incoming_webhook/postToExchange";
+    public String SLIDER_API = "https://webhooks.mongodb-realm.com/api/client/v2.0/app/unapp-ntnli/service/unwaste/incoming_webhook/slider";
 
 }

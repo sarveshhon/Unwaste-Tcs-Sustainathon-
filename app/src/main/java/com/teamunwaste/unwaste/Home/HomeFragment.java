@@ -1,9 +1,11 @@
 package com.teamunwaste.unwaste.Home;
 
 import static com.teamunwaste.unwaste.Helper.API.PRODUCTS_API;
+import static com.teamunwaste.unwaste.Helper.API.SLIDER_API;
 import static com.teamunwaste.unwaste.Helper.PARAM._id;
 import static com.teamunwaste.unwaste.Helper.PARAM.categoryImage;
 import static com.teamunwaste.unwaste.Helper.PARAM.categoryTitle;
+import static com.teamunwaste.unwaste.Helper.PARAM.image;
 import static com.teamunwaste.unwaste.Helper.PARAM.productDescription;
 import static com.teamunwaste.unwaste.Helper.PARAM.productImage;
 import static com.teamunwaste.unwaste.Helper.PARAM.productPrice;
@@ -25,9 +27,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.teamunwaste.unwaste.Helper.PARAM;
 import com.teamunwaste.unwaste.Home.HomeFM.CategoryAdapter;
 import com.teamunwaste.unwaste.Home.HomeFM.CategoryModel;
 import com.teamunwaste.unwaste.Home.HomeFM.ProductModel;
+import com.teamunwaste.unwaste.Home.HomeFM.slider.HomeBannerSliderAdapter;
+import com.teamunwaste.unwaste.Home.HomeFM.slider.HomeSliderModel;
 import com.teamunwaste.unwaste.databinding.FragmentHomeBinding;
 
 import org.json.JSONArray;
@@ -46,13 +51,15 @@ public class HomeFragment extends Fragment {
     List<ProductModel> productModelList;
     CategoryAdapter categoryAdapter;
 
+    List<HomeSliderModel> homeSliderModelList = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
 
-
+        loadImageSlider();
         loadProducts();
 
         binding.swipe.setOnRefreshListener(() -> {
@@ -63,6 +70,37 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
+
+    private void loadImageSlider() {
+
+        StringRequest request = new StringRequest(Request.Method.GET, SLIDER_API, response -> {
+
+            try {
+                JSONArray jsonArray = new JSONArray(response);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                    homeSliderModelList.add(new HomeSliderModel(jsonObject.getString(image), jsonObject.getString(PARAM.url)));
+
+                }
+
+                binding.imageSlider.setSliderAdapter(new HomeBannerSliderAdapter(getContext(), homeSliderModelList));
+                binding.imageSlider.setScrollTimeInSec(4);
+                binding.imageSlider.startAutoCycle();
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }, error -> {
+
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(request);
+    }
 
     private void loadProducts() {
 

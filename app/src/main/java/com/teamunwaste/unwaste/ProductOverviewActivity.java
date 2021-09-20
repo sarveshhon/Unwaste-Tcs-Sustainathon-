@@ -6,10 +6,16 @@ import static com.teamunwaste.unwaste.Helper.PARAM.productId;
 import static com.teamunwaste.unwaste.Helper.PARAM.productImage;
 import static com.teamunwaste.unwaste.Helper.PARAM.productPrice;
 import static com.teamunwaste.unwaste.Helper.PARAM.productTitle;
+import static com.teamunwaste.unwaste.Helper.PARAM.userEmail;
 import static com.teamunwaste.unwaste.Helper.PARAM.userName;
+import static com.teamunwaste.unwaste.Helper.PARAM.userPhone;
+import static com.teamunwaste.unwaste.Helper.Util.callNow;
 import static com.teamunwaste.unwaste.Helper.Util.setStatusBar;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +25,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.teamunwaste.unwaste.databinding.ActivityProductOverviewBinding;
 
 import org.json.JSONArray;
@@ -31,6 +38,9 @@ import java.util.Map;
 public class ProductOverviewActivity extends AppCompatActivity {
 
     ActivityProductOverviewBinding binding;
+    FirebaseAuth mAuth;
+
+    String title, description, price, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +49,35 @@ public class ProductOverviewActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setStatusBar(this, R.color.white);
 
+        mAuth = FirebaseAuth.getInstance();
+
         loadProduct(getIntent().getStringExtra(productId));
 
-        binding.btnPlaceOrder.setOnClickListener(v -> {
+        binding.btnEmail.setOnClickListener(v -> {
 
+            String data = "Product:\n" + title + "\n" +
+                    description + "\n" +
+                    price + "\n\n" +
+                    "Order By:\n" +
+                    mAuth.getCurrentUser().getDisplayName() + "\n" +
+                    mAuth.getCurrentUser().getEmail() + "\n";
+
+            Intent email = new Intent(Intent.ACTION_SEND);
+            email.putExtra(Intent.EXTRA_EMAIL, new String[]{getIntent().getStringExtra(userEmail)});
+            email.setPackage("com.google.android.gm");
+            email.putExtra(Intent.EXTRA_SUBJECT, "Order Request by " + mAuth.getCurrentUser().getDisplayName());
+            email.putExtra(Intent.EXTRA_TEXT, data);
+
+            //need this to prompts email client only
+            email.setType("plain/text");
+
+            startActivity(Intent.createChooser(email, "Choose an Email client :"));
+
+        });
+
+        binding.btnPhone.setOnClickListener(v -> {
+
+            callNow(this,getIntent().getStringExtra(userPhone));
 
         });
 
@@ -56,9 +91,17 @@ public class ProductOverviewActivity extends AppCompatActivity {
             try {
                 JSONArray jsonArray = new JSONArray(response);
                 JSONObject jsonObject = jsonArray.getJSONObject(0);
-                binding.tvProductTitle.setText(jsonObject.getString(productTitle));
-                binding.tvProductDescription.setText(jsonObject.getString(productDescription));
-                binding.tvProductPrice.setText(getString(R.string.rupee) + jsonObject.getString(productPrice));
+
+                title = jsonObject.getString(productTitle);
+                description = jsonObject.getString(productDescription);
+                price = getString(R.string.rupee) + jsonObject.getString(productPrice);
+                email = jsonObject.getString(userEmail);
+                Log.d("Email",email);
+
+                binding.tvProductTitle.setText(title);
+                binding.tvProductDescription.setText(description);
+                binding.tvProductPrice.setText(price);
+
                 binding.tvUserName.setText(jsonObject.getString(userName));
                 Glide.with(this).load(jsonObject.getString(productImage)).into(binding.ivProductImage);
 

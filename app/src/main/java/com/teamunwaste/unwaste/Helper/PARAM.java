@@ -26,4 +26,7 @@ public interface PARAM {
         public String userAddress = "userAddress";
         public String postDate = "postDate";
 
+        public String image = "image";
+        public String url = "url";
+
 }

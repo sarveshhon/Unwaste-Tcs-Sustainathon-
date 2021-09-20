@@ -22,10 +22,10 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.tlHomeAct.addTab(binding.tlHomeAct.newTab().setText("Home"));
-        binding.tlHomeAct.addTab(binding.tlHomeAct.newTab().setText("Exchange"));
-        binding.tlHomeAct.addTab(binding.tlHomeAct.newTab().setText("Explore"));
-        binding.tlHomeAct.addTab(binding.tlHomeAct.newTab().setText("Account"));
+        binding.tlHomeAct.addTab(binding.tlHomeAct.newTab().setText("Home").setIcon(R.drawable.ic_home));
+        binding.tlHomeAct.addTab(binding.tlHomeAct.newTab().setText("Exchange").setIcon(R.drawable.ic_exchange));
+        binding.tlHomeAct.addTab(binding.tlHomeAct.newTab().setText("Explore").setIcon(R.drawable.ic_explore));
+        binding.tlHomeAct.addTab(binding.tlHomeAct.newTab().setText("Account").setIcon(R.drawable.ic_user));
 
         binding.vpHomeAct.setAdapter(new HomeVPAdapter(getSupportFragmentManager(), getLifecycle()));
         binding.vpHomeAct.setUserInputEnabled(false);
