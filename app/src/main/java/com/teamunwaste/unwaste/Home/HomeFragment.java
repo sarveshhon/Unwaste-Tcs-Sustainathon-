@@ -10,7 +10,6 @@ import static com.teamunwaste.unwaste.Helper.PARAM.productPrice;
 import static com.teamunwaste.unwaste.Helper.PARAM.productStatus;
 import static com.teamunwaste.unwaste.Helper.PARAM.productTitle;
 import static com.teamunwaste.unwaste.Helper.PARAM.userEmail;
-import static com.teamunwaste.unwaste.Helper.PARAM.userId;
 import static com.teamunwaste.unwaste.Helper.PARAM.userName;
 import static com.teamunwaste.unwaste.Helper.PARAM.userPhone;
 
@@ -56,6 +55,10 @@ public class HomeFragment extends Fragment {
 
         loadProducts();
 
+        binding.swipe.setOnRefreshListener(() -> {
+
+            loadProducts();
+        });
 
         return binding.getRoot();
     }
@@ -63,9 +66,14 @@ public class HomeFragment extends Fragment {
 
     private void loadProducts() {
 
+        categoryModelList.clear();
+
         StringRequest request = new StringRequest(Request.Method.POST, PRODUCTS_API, response -> {
 
             try {
+                if (binding.swipe.isRefreshing()) {
+                    binding.swipe.setRefreshing(false);
+                }
                 JSONArray jsonArray = new JSONArray(response);
 
                 for (int i = 0; i < jsonArray.length(); i++) {

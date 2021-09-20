@@ -1,6 +1,7 @@
-package com.teamunwaste.unwaste.Home;
+package com.teamunwaste.unwaste.Home.AccountFM.Exchange;
 
-import static com.teamunwaste.unwaste.Helper.API.EXCHANGE_API;
+import static com.teamunwaste.unwaste.Helper.API.EXCHANGE_HISTORY_API;
+import static com.teamunwaste.unwaste.Helper.API.SELL_PRODUCT_HISTORY_API;
 import static com.teamunwaste.unwaste.Helper.PARAM._id;
 import static com.teamunwaste.unwaste.Helper.PARAM.exchangeDescription;
 import static com.teamunwaste.unwaste.Helper.PARAM.exchangeFee;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -25,45 +27,55 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
 import com.teamunwaste.unwaste.Home.ExchangeFM.ExchangeAdapter;
 import com.teamunwaste.unwaste.Home.ExchangeFM.ExchangeModel;
-import com.teamunwaste.unwaste.databinding.FragmentExchangeBinding;
+import com.teamunwaste.unwaste.databinding.FragmentExchangeHistoryBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class ExchangeFragment extends Fragment {
+public class ExchangeHistoryFragment extends Fragment {
 
-    FragmentExchangeBinding binding;
+    FragmentExchangeHistoryBinding binding;
 
     List<ExchangeModel> exchangeModelList = new ArrayList<>();
-    ExchangeAdapter exchangeAdapter;
+    ExchangeHistoryAdapter exchangeHistoryAdapter;
+
+    FirebaseAuth mAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentExchangeBinding.inflate(getLayoutInflater());
+        binding = FragmentExchangeHistoryBinding.inflate(getLayoutInflater());
 
 
-        loadExchangeData();
+        mAuth = FirebaseAuth.getInstance();
+
+        loadProductList(mAuth.getCurrentUser().getEmail());
+
         binding.swipe.setOnRefreshListener(() -> {
 
-            loadExchangeData();
+            loadProductList(mAuth.getCurrentUser().getEmail());
         });
 
 
         return binding.getRoot();
     }
 
-    private void loadExchangeData() {
+
+    private void loadProductList(String mid) {
+
         exchangeModelList.clear();
 
-        StringRequest request = new StringRequest(Request.Method.POST, EXCHANGE_API, response -> {
+        StringRequest request = new StringRequest(Request.Method.POST, EXCHANGE_HISTORY_API, response -> {
 
             try {
                 if (binding.swipe.isRefreshing()) {
@@ -90,9 +102,9 @@ public class ExchangeFragment extends Fragment {
 
                 }
 
-                exchangeAdapter = new ExchangeAdapter(getContext(), exchangeModelList);
-                binding.rvExchange.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-                binding.rvExchange.setAdapter(exchangeAdapter);
+                exchangeHistoryAdapter = new ExchangeHistoryAdapter(getContext(), exchangeModelList);
+                binding.rvExchangeHistory.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                binding.rvExchangeHistory.setAdapter(exchangeHistoryAdapter);
 
 
             } catch (JSONException e) {
@@ -101,7 +113,17 @@ public class ExchangeFragment extends Fragment {
 
         }, error -> {
 
-        });
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() {
+
+                HashMap<String, String> param = new HashMap<>();
+                param.put(userEmail, mid);
+
+                return param;
+            }
+        };
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(request);

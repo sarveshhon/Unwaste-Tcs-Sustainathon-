@@ -14,6 +14,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.teamunwaste.unwaste.Home.AccountFM.ExchangeActivity;
+import com.teamunwaste.unwaste.Home.AccountFM.ProfileActivity;
+import com.teamunwaste.unwaste.Home.AccountFM.SellProductActivity;
 import com.teamunwaste.unwaste.MainActivity;
 import com.teamunwaste.unwaste.R;
 import com.teamunwaste.unwaste.databinding.FragmentAccountBinding;
@@ -44,6 +47,16 @@ public class AccountFragment extends Fragment {
             mAuth.signOut();
             startActivity(new Intent(context, MainActivity.class));
             getActivity().finish();
+        });
+
+        binding.llProfile.setOnClickListener(v -> {
+            startActivity(new Intent(context, ProfileActivity.class));
+        });
+        binding.llSellProduct.setOnClickListener(v -> {
+            startActivity(new Intent(context, SellProductActivity.class));
+        });
+        binding.llExchange.setOnClickListener(v -> {
+            startActivity(new Intent(context, ExchangeActivity.class));
         });
 
         return binding.getRoot();

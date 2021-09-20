@@ -1,14 +1,11 @@
 <resources>
     <string name="app_name">Unwaste</string>
-    <string name="rupee">₹.</string>
+    <string name="rupee">₹</string>
     <string name="posted_on">Posted on</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="more_products">More Products</string>
 
     <string name="internet_hint">Unable to proceed further.\nPlease check your internet connection and try again.</string>
     <string name="no_internet">No Internet</string>
     <string name="try_again">Try Again</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
